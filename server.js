@@ -102,13 +102,26 @@ app.get('/byid/:id',async(req,res)=>{
     catch(err){
         res.send(err)
     }
-
-
-
-
-
-
 });
+
+ //delete from database
+    //http://127.0.0.1:3000/delete/id
+    app.delete('/delete/:id',(req,res)=>{
+        id=req.params.id
+        User.findOneAndDelete({_id:id})
+        .then(
+            (deletedUser)=>{
+                res.send(deletedUser)
+            }
+        )
+        .catch(
+            (err)=>{
+            res.send(err)
+            }
+        )
+
+
+    })
 
 
 
