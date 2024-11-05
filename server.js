@@ -75,6 +75,21 @@ app.get('/all',async(req,res)=>{
     }
     
 });
+//return data by id
+app.get('/getbyid/:id',(req,res)=>{
+    myid=req.params.id;
+    User.findOne({_id:myid})
+    .then(
+        (user)=>{
+            res.send(user)
+        }
+    )
+    .catch(
+        (err)=>{
+            res.send(err)
+        }
+    )
+})
 
 
 
