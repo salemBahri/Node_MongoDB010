@@ -9,11 +9,9 @@ app.use(express.json());
 
 
 app.post('/add',(req,res)=>{
-
     data=req.body;
     //create instance for insert in database
     usr=new User(data);
-
     //for save in DB*(mongoDB)
     usr.save()
     //this for controle request effected or not
@@ -27,10 +25,24 @@ app.post('/add',(req,res)=>{
                 res.send(err)
             }
         )
-
-
-   
 });
+app.post('/create', async(req,res)=>{
+
+    try{
+        data=req.body;
+        usr=new User(data);
+        saveUser=await usr.save();
+        res.send(saveUser)
+    }catch(error){
+        res.send(error);
+    }
+    
+})
+
+
+
+
+
 app.get('/getall',()=>{
     console.log('get work');
     
