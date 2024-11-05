@@ -89,7 +89,34 @@ app.get('/getbyid/:id',(req,res)=>{
             res.send(err)
         }
     )
-})
+});
+
+//other method for return data by id
+app.get('/byid/:id',async(req,res)=>{
+    try{
+        myid=req.params.id;
+        user= await User.findOne({_id:myid})
+        res.send(user)
+
+    }
+    catch(err){
+        res.send(err)
+    }
+
+
+
+
+
+
+});
+
+
+
+
+
+
+
+
 
 
 
