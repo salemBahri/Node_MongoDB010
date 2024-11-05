@@ -43,10 +43,31 @@ app.post('/create', async(req,res)=>{
 
 
 
-app.get('/getall',()=>{
-    console.log('get work');
+
+
+//show all users with form collection (tables)
+
+app.get('/getall',(req,res)=>{
+    User.find()
+    .then(
+        (users)=>{
+            res.send(users);
+        }
+    )
+    .catch(
+        (err)=>{
+            res.send(err);
+        }
+    )
     
 })
+
+
+
+
+
+
+
 
 
 
