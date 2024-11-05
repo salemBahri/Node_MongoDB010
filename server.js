@@ -7,7 +7,7 @@ const app=express();
 //accept data from frontend or postman(de typejson)
 app.use(express.json());
 
-
+//add new user
 app.post('/add',(req,res)=>{
     data=req.body;
     //create instance for insert in database
@@ -26,6 +26,7 @@ app.post('/add',(req,res)=>{
             }
         )
 });
+//ather method for add user
 app.post('/create', async(req,res)=>{
 
     try{
@@ -60,8 +61,19 @@ app.get('/getall',(req,res)=>{
         }
     )
     
-})
+});
+//other method for show all users with form collection (tables)
 
+app.get('/all',async(req,res)=>{
+    try{
+        users= await User.find();
+        res.send(users);
+    }
+    catch(err){
+        res.send(err);
+    }
+    
+});
 
 
 
