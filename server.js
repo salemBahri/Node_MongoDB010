@@ -66,7 +66,8 @@ app.get('/getall',(req,res)=>{
 
 app.get('/all',async(req,res)=>{
     try{
-        users= await User.find();
+        //showed all user with age=20 and name='Mohamed'
+        users= await User.find({age:20,name:'Mohamed'});
         res.send(users);
     }
     catch(err){
