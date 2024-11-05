@@ -108,7 +108,7 @@ app.get('/byid/:id',async(req,res)=>{
     //http://127.0.0.1:3000/delete/id
     app.delete('/delete/:id',(req,res)=>{
         id=req.params.id
-        User.findOneAndDelete({_id:id})
+        User.findOneAndDelete({_id:id})//if write User.findOneAndDelete() //then deleted first user
         .then(
             (deletedUser)=>{
                 res.send(deletedUser)
@@ -119,12 +119,21 @@ app.get('/byid/:id',async(req,res)=>{
             res.send(err)
             }
         )
+    })
 
-
+    app.delete('/del/:id',async (req,res)=>{
+        try{
+            myid=req.params.id;
+            deletedUser= await User.findOneAndDelete({_id:myid})
+            res.send(deletedUser)
+        }
+        catch(err){
+            res.send(err)
+        }
     })
 
 
-
+    
 
 
 
