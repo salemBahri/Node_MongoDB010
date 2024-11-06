@@ -4,14 +4,30 @@ const router=express.Router();
 const Product=require('../models/product');
 
 
+//import multer
+const multer=require('multer');
+filename='';
+const mystorage=multer.diskStorage({
+    destination:'./uploads',
+    filename:(req,file,redirect)=>{
+        let date=Date.now();
+        let fl=date +'.'+file.mimetype.split('/')[1];
+        redirect(null,fl);
+        filename=fl;
+    }
+})
+const upload=multer({storage:mystorage})
+
 /*******************  Product CRUD *********************/
 
-router.post('/createproduct', async(req,res)=>{
+router.post('/createproduct',upload.any('image'), async(req,res)=>{
 
     try{
         data=req.body;
         prod=new Product(data);
+        prod.image=filename;
         saveProduct=await prod.save();
+        filename='';
         res.status(200).send(saveProduct)
     }catch(error){
         res.status(400).send(error);
