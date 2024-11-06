@@ -1,5 +1,6 @@
 const express=require('express');
 const User=require('./models/user');
+const Product=require('./models/product');
 
 require('./config/connect');
 
@@ -171,7 +172,72 @@ app.get('/byid/:id',async(req,res)=>{
 
 
 
+/*******************  Product CRUD *********************/
 
+    app.post('/createproduct', async(req,res)=>{
+
+        try{
+            data=req.body;
+            prod=new Product(data);
+            saveProduct=await prod.save();
+            res.status(200).send(saveProduct)
+        }catch(error){
+            res.status(400).send(error);
+        }
+    })
+
+
+    //all product
+    app.get('/allproduct',async(req,res)=>{
+        try{
+            //showed all product 
+            products= await Product.find();
+            res.status(200).send(products);
+        }
+        catch(err){
+            res.status(400).send(err);
+        } 
+    });
+    //product by id
+    app.get('/productid/:id',async(req,res)=>{
+        try{
+            myid=req.params.id;
+            product= await Product.findOne({_id:myid})
+            res.status(200).send(product)
+    
+        }
+        catch(err){
+            res.status(400).send(err)
+        }
+    });
+    //delete product
+    app.delete('/deleteprod/:id',async (req,res)=>{
+        try{
+            myid=req.params.id;
+            deletedProd= await Product.findOneAndDelete({_id:myid})
+            res.status(200).send(deletedProd)
+        }
+        catch(err){
+            res.status(400).send(err)
+        }
+    })
+
+    //update product
+    app.put('/ /:id',async (req,res)=>{
+
+        try{
+            id=req.params.id
+            updatedProd=req.body;
+            updated=await Product.findByIdAndUpdate({_id:id},updatedProd)
+            res.status(200).send(updated)
+        }
+        catch(err){
+            res.status(400).send(err)
+        }
+   
+    })
+
+    
 
 
 
