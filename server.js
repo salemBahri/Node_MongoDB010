@@ -133,7 +133,26 @@ app.get('/byid/:id',async(req,res)=>{
     })
 
 
-    
+
+    //update data
+    app.put('/update/:id',async (req,res)=>{
+        
+            myid=req.params.id;
+            updatedData=req.body;
+            User.findByIdAndUpdate({_id:myid},updatedData)
+            .then(
+                (updatedUser)=>{
+                    res.send(updatedData)
+                }
+            )
+            .catch(
+                (err)=>{
+                    res.send(err)
+                }
+            )
+
+       
+    })
 
 
 
