@@ -150,8 +150,23 @@ app.get('/byid/:id',async(req,res)=>{
                     res.send(err)
                 }
             )
-
        
+    })
+
+
+
+    app.put('/upd/:id',async (req,res)=>{
+
+        try{
+            id=req.params.id
+            updatedData=req.body;
+            updated=await User.findByIdAndUpdate({_id:id},updatedData)
+            res.send(updated)
+        }
+        catch(err){
+            res.send(err)
+        }
+   
     })
 
 
