@@ -20,12 +20,12 @@ const upload=multer({storage:mystorage})
 
 /*******************  Product CRUD *********************/
 
-router.post('/createproduct',upload.any('image'), async(req,res)=>{
+router.post('/createproduct',upload.any('sound'), async(req,res)=>{
 
     try{
         data=req.body;
         prod=new Product(data);
-        prod.image=filename;
+        prod.sound=filename;
         saveProduct=await prod.save();
         filename='';
         res.status(200).send(saveProduct)
