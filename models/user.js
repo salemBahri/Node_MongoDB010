@@ -11,6 +11,7 @@ const User=mongoose.model('User',{
     age:{
         type:String
     },
+    //add 2 columns
     email:{
         type:String
     },

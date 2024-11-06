@@ -6,7 +6,7 @@ const User=require('../models/user');
 const bcrypt=require('bcrypt');
 
 
-//add new user(register)
+//add new account(register)
 router.post('/register',async(req,res)=>{
     data=req.body;
     user=new User(data);
