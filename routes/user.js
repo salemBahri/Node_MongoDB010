@@ -2,27 +2,36 @@ const express=require('express');
 
 const router=express.Router();
 const User=require('../models/user');
+//install bcrypt "npm i bcrypt"
+const bcrypt=require('bcrypt');
 
 
-//add new user
-router.post('/add',(req,res)=>{
+//add new user(register)
+router.post('/register',async(req,res)=>{
     data=req.body;
-    //create instance for insert in database
-    usr=new User(data);
-    //for save in DB*(mongoDB)
-    usr.save()
-    //this for controle request effected or not
-        .then(
-            (savedUser)=>{
-                res.send(savedUser)
-            }
-        )
-        .catch(
-            (err)=>{
-                res.send(err)
-            }
-        )
-});
+    user=new User(data);
+    salt=bcrypt.genSaltSync(10);
+    cryptedPass=await bcrypt.hashSync(data.password,salt)
+    user.password=cryptedPass;
+    user.save()
+
+    .then(
+        (saved)=>{
+            res.status(200).send(saved)
+        }
+    )
+    .catch(
+        (err)=>{
+            res.status(400).send(err)
+        }
+    )
+
+})
+
+
+
+
+
 //ather method for add user
 router.post('/create', async(req,res)=>{
 

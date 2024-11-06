@@ -10,6 +10,12 @@ const User=mongoose.model('User',{
     },
     age:{
         type:String
+    },
+    email:{
+        type:String
+    },
+    password:{
+        type:String
     }
 
 })
